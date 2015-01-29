@@ -14,7 +14,7 @@ class Client(models.Model):
   phone1 = models.CharField(max_length=24, blank=True)
   phone2 = models.CharField(max_length=24, blank=True)
   fax = models.CharField(max_length=24, blank=True)
-  email = models.CharField(max_length=128, blank=True)
+  email = models.EmailField(max_length=128, blank=True)
 
   def __str__(self):
     return "%s, %s" % (self.last_name, self.first_name)
@@ -37,7 +37,7 @@ class Proceeding(models.Model):
 class Item(models.Model):
   name = models.CharField(max_length=256)
   date = models.DateTimeField()
-  time_spent = models.IntegerField(blank=True, null=True)
+  minutes_spent = models.IntegerField(blank=True, null=True)
   proceeding = models.ForeignKey(Proceeding)
 
   def __str__(self):
