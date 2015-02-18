@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 # Create your models here.
 
@@ -45,6 +46,10 @@ class Item(models.Model):
   def __str__(self):
     return self.name
 
+
 class Code(models.Model):
   code = models.CharField(max_length=32)
   value = models.TextField(max_length=512)
+  
+
+
