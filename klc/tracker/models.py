@@ -3,10 +3,10 @@ from django.forms import ModelForm
 
 # Create your models here.
 
-class Client(models.Model):
-  first_name = models.CharField(max_length=128)
-  last_name = models.CharField(max_length=128)
-  short_name = models.CharField(max_length=32)
+class Contact(models.Model):
+  first_name = models.CharField(max_length=128, blank=True)
+  last_name = models.CharField(max_length=128, blank=True)
+  short_name = models.CharField(max_length=32, blank=True)
   role = models.CharField(max_length=128, blank=True)
   company = models.CharField(max_length=128, blank=True)
   address1 = models.CharField(max_length=128, blank=True)
@@ -18,14 +18,15 @@ class Client(models.Model):
   phone2 = models.CharField(max_length=24, blank=True)
   fax = models.CharField(max_length=24, blank=True)
   email = models.EmailField(max_length=128, blank=True)
+  comment = models.TextField(blank='True')
 
   def __str__(self):
-    return self.company
+    return "%s, %s" % (self.last_name, self.first_name)
 
 
 class Proceeding(models.Model):
   name = models.CharField(max_length=128)
-  client = models.ForeignKey(Client)
+  contact = models.ForeignKey(Contact)
   start_date = models.DateTimeField()
   CHOICES = (
       ('Y', 'Y'),
@@ -42,6 +43,7 @@ class Item(models.Model):
   name = models.CharField(max_length=256)
   notes = models.TextField(blank=False, default='')
   date = models.DateTimeField()
+  contacts = models.ManyToManyField(Contact)
 
   def __str__(self):
     return self.name

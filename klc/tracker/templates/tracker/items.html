@@ -2,15 +2,15 @@
 <link rel="stylesheet" type="text/css" href="{% static "tracker/tracker.css" %}">
 <h3>Items for Proceeding: {{ proceeding }}</h3>
 {% if item_list %}
-	{% for item, notes, line_count in item_list %}
+	{% for item, notes, line_count, contacts in item_list %}
 		<table class="items">
 			<tr>
 				<td class="items" style="width:20%"><a href="{% url 'item' item.id %}">{{ item.name }}</a></td>
-				<td class="items" style="width:60%">
+				<td class="items" style="width:10%">{{ contacts }}
+				<td class="items" style="width:70%">
 					<textarea name='{{ item.id }}' cols=100 rows='{{ line_count }}'>{{ notes }}
 					</textarea>	
 				</td>
-				<td class="items" style="width:20%">{{ item.date }}</td>
 			</td>
 		</table>
 	{% endfor %}

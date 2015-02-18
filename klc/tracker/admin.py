@@ -1,8 +1,8 @@
 from django.contrib import admin
-from tracker.models import Proceeding, Client, Item, Code
+from tracker.models import Proceeding, Contact, Item, Code
 
 class ProceedingAdmin(admin.ModelAdmin):
-  list_display = ('name', 'client', 'start_date')
+  list_display = ('name', 'contact', 'start_date')
 
 class ItemAdmin(admin.ModelAdmin):
   list_display = ('proceeding', 'date', 'name', 'snippet')
@@ -11,7 +11,7 @@ class ItemAdmin(admin.ModelAdmin):
     return "%s..." % obj.notes[0:24]
   snippet.short_description = 'notes snippet'
 
-class ClientAdmin(admin.ModelAdmin):
+class ContactAdmin(admin.ModelAdmin):
   list_display = ('full_name', 'short_name', 'role', 'phone1', 'email')
   
   def full_name(self, obj):
@@ -29,6 +29,6 @@ class CodeAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Proceeding, ProceedingAdmin)
-admin.site.register(Client, ClientAdmin)
+admin.site.register(Contact, ContactAdmin)
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Code, CodeAdmin)
