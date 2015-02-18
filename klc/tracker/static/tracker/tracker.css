@@ -1,0 +1,18 @@
+html * {
+	font-family: "Arial", Helvetica, sans-serif;
+}
+
+table.items {
+	width: 100%;
+}
+
+td.items {
+	border: 1px solid black;
+	border-collapse: collapse;
+	vertical-align:top;
+}
+
+
+textarea.items {
+	vertical-align:top;
+}
