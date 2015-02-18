@@ -12,7 +12,10 @@ td.items {
 	vertical-align:top;
 }
 
-
 textarea.items {
 	vertical-align:top;
+}
+
+a.items {
+	text-decoration: none;
 }
