@@ -2,19 +2,32 @@
 <link rel="stylesheet" type="text/css" href="{% static "tracker/tracker.css" %}">
 <h3>Items for Proceeding: {{ proceeding }}</h3>
 {% if item_list %}
+	<table class="items">
+		<tr>
+			<th class="items" style="width:20%">Item</th>
+			<th class="items" style="width:10%">Parties</th>
+			<th class="items" style="width:70%">Notes</th>
+		</tr>
+	</table>
 	{% for item, notes, line_count, contacts in item_list %}
 		<table class="items">
 			<tr>
-				<td class="items" style="width:20%"><a class="items" href="{% url 'item' item.id %}">{{ item.name }}</a></td>
-				<td class="items" style="width:10%">{{ contacts }}
+				<td class="items" style="width:20%"><a class="items" href="{% url 'item' item.id %}">{{ item.name }}</a><br><br>{{ item.date }}</td>
+				<td class="items" style="width:10%">
+					{% for c,e in contacts %}
+					<div title='{{ e }}'>{{ c }}</div>
+					{% endfor %}
 				<td class="items" style="width:70%">
 					<textarea name='{{ item.id }}' cols=100 rows='{{ line_count }}'>{{ notes }}
 					</textarea>	
 				</td>
 			</td>
 		</table>
-	{% endfor %}
-
+		{% endfor %}
+		<form name='new-item' method=post action="/tracker/new_item.html">
+			<input type=hidden name='proceeding_id' value='{{ proceeding }}'>
+			<input type='submit' value='New' onclick="this.form.target='_blank';return true;">
+		</form>
 {% else %}
 	<p>No items are available.</p>
 {% endif %}

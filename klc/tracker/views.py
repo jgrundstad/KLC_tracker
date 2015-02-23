@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from forms import ItemForm
 from tracker.models import Proceeding, Contact, Item, Code
 
 # Create your views here.
@@ -9,6 +9,11 @@ def index(request):
   context = {'proceeding_list': proceeding_list}
   return render(request, 'tracker/index.html', context)
 
+def new_item(request, proceeding_name):
+  # add-new-item form
+  form = ItemForm(request.POST)
+  context = {'proceeding_name': proceeding_name, 'form': form}
+  return HttpResponse(request, 'tracker/new_item.html', context)
 
 def item(request, item_id):
   return HttpResponse("Inspecting item %s." % item_id)
@@ -19,7 +24,7 @@ def contact(request, contact_id):
 
 
 def items(request, proceeding_id):
-  items = Item.objects.filter(proceeding=proceeding_id).order_by('-date')
+  items = Item.objects.filter(proceeding=proceeding_id).order_by('date')
   line_count_list = list()
   notes_list = list()
   contact_list = list()
@@ -35,10 +40,14 @@ def items(request, proceeding_id):
     count = str((item.notes).count('\n') + 3)
     line_count_list.append(count)
     # get list of contacts
-    contact_string = ''
+    contacts = list()
+    emails = list()
     for c in item.contacts.all():
-      contact_string += "%s " % c.short_name
-    contact_list.append(contact_string)
+      #contacts.append(c.short_name + '\n' + c.email)
+      contacts.append(c.short_name)
+      emails.append("%s, %s\n%s\n%s" % (c.last_name, c.first_name,
+        c.email, c.phone1))
+    contact_list.append(zip(contacts, emails))
   item_list = zip(items, notes_list, line_count_list, contact_list)
   # get the proceeding name from the id to add to the heading
   p_name = Proceeding.objects.filter(id=proceeding_id)[0].name
