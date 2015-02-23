@@ -1,2 +1,13 @@
-<h2>Add new item:</h2>{{ proceeding_name }}
-{% csrf_token %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "tracker/tracker.css" %}">
+{% if proceeding_id %}
+  <h2>Add new item to proceeding:</h2>
+  <form action="{% url 'create_new_item' proceeding_id%}" method="POST">
+	{% csrf_token %}
+	{% for field in form %}
+	{{ field.name }} {{ field }}<br>
+	{% endfor %}
+	<input type='hidden' name='proceeding_id' value='{{ proceeding_id }}'>
+	<input type="submit" value="Save" />
+  </form>
+{% endif %}

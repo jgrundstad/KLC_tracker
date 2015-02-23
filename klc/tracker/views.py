@@ -9,11 +9,21 @@ def index(request):
   context = {'proceeding_list': proceeding_list}
   return render(request, 'tracker/index.html', context)
 
-def new_item(request, proceeding_name):
+
+def new_item(request, proceeding_id):
   # add-new-item form
   form = ItemForm(request.POST)
-  context = {'proceeding_name': proceeding_name, 'form': form}
-  return HttpResponse(request, 'tracker/new_item.html', context)
+  context = {'form': form, 'proceeding_id': proceeding_id}
+  return render(request, 'tracker/new_item.html', context)
+
+
+def create_new_item(request, proceeding_id):
+  if request.method == 'POST':
+    form = ItemForm(request.POST)
+    form.save()
+    return HttpResponse("Thanks")
+
+
 
 def item(request, item_id):
   return HttpResponse("Inspecting item %s." % item_id)
@@ -51,6 +61,6 @@ def items(request, proceeding_id):
   item_list = zip(items, notes_list, line_count_list, contact_list)
   # get the proceeding name from the id to add to the heading
   p_name = Proceeding.objects.filter(id=proceeding_id)[0].name
-  context = {'item_list': item_list, 'proceeding': p_name}
+  context = {'item_list': item_list, 'proceeding': p_name, 'proceeding_id': proceeding_id}
   return render(request, 'tracker/items.html', context)
 
