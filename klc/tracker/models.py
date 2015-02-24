@@ -42,7 +42,7 @@ class Item(models.Model):
   proceeding = models.ForeignKey(Proceeding)
   name = models.CharField(max_length=256)
   notes = models.TextField(blank=False, default='')
-  date = models.DateTimeField()
+  date = models.DateTimeField(auto_now_add=True)
   contacts = models.ManyToManyField(Contact)
 
   def __str__(self):

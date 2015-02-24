@@ -1,7 +1,10 @@
+from django.core.context_processors import csrf
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.http import HttpResponse
 from forms import ItemForm
 from tracker.models import Proceeding, Contact, Item, Code
+
 
 # Create your views here.
 def index(request):
@@ -18,10 +21,18 @@ def new_item(request, proceeding_id):
 
 
 def create_new_item(request, proceeding_id):
+  context = {}
   if request.method == 'POST':
     form = ItemForm(request.POST)
-    form.save()
-    return HttpResponse("Thanks")
+    if form.is_valid():
+      form.save()
+      return HttpResponseRedirect(reverse('items',
+          kwargs={'proceeding_id':proceeding_id}))
+  else:
+    form = ItemForm()
+    context['form'] = form
+    return render_to_response('new_item.html', context)
+
 
 
 

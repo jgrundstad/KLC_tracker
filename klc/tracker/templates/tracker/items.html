@@ -12,7 +12,7 @@
 	{% for item, notes, line_count, contacts in item_list %}
 		<table class="items">
 			<tr>
-				<td class="items" style="width:20%"><a class="items" href="{% url 'item' item.id %}">{{ item.name }}</a><br><br>{{ item.date }} - {{ proceeding_id }}</td>
+				<td class="items" style="width:20%"><a class="items" href="{% url 'item' item.id %}">{{ item.name }}</a><br><br>{{ item.date }}</td>
 				<td class="items" style="width:10%">
 					{% for c,e in contacts %}
 					<div title='{{ e }}'>{{ c }}</div>
