@@ -1,5 +1,6 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static "tracker/tracker.css" %}">
+{% extends "tracker/base.html"  %}
+{% block content %}
+<div class="container-fluid">
 <h3>List of Proceedings:</h3>
 {% if proceeding_list %}
 	<ul>
@@ -9,4 +10,6 @@
 	</ul>
 {% else %}
 	<p>No proceedings are available.</p>
-{% endif %}
+	{% endif %}
+</div>
+{% endblock %}

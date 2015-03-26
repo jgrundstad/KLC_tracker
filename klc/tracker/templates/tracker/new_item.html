@@ -1,5 +1,5 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static "tracker/tracker.css" %}">
+{% extends "tracker/base.html" %}
+{% block content %}
 {% if proceeding_id %}
   <h2>Add new item to proceeding:</h2>
   <form action="{% url 'create_new_item' proceeding_id %}" method="POST">
@@ -10,4 +10,5 @@
 	<input type='hidden' name='proceeding_id' value='{{ proceeding_id }}'>
 	<input type="submit" value="Save" />
   </form>
-{% endif %}
+  {% endif %}
+{% endblock %}
