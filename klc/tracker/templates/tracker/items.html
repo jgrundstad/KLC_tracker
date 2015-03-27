@@ -19,13 +19,23 @@
 				<textarea name='{{ item.id }}' cols=80 rows='{{ line_count }}' style="font-family: courier; font-size:12 px;">{{ notes }}
 				</textarea>	
 			</td>
-		</td>
-	{% endfor %}
+		</tr>
+		{% endfor %}
+		<!-- add final form fields -->
+		<form action="/tracker/new_item/">
+			<tr>
+				<td style="width:20%;"></td>
+				<td style="width:10%;"></td>
+				<td style="width:70%;"><input type=textarea cols=80 rows=10 style="font-family: courier; font-size:12 px;"></td>
+			</tr>
+		</form>
 	</table>
 {% else %}
 	<p>No items are available.</p>
 	{% endif %}
 	<p style="text-align:center";>
-	<button type="button" class="btn btn-default" href="/tracker/{{proceeding_id}}/new_item/">Add New Item</button>
+	<form action="/tracker/{{proceeding_id}}/new_item/" target="_blank">
+		<button type="submit" class="btn btn-default">Add New Item</button>
+	</form>
 	</p>
 {% endblock %}
